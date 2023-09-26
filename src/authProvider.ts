@@ -3,8 +3,21 @@ import { AuthBindings } from "@refinedev/core";
 export const TOKEN_KEY = "refine-auth";
 
 export const authProvider: AuthBindings = {
-  login: async ({ username, email, password }) => {
-    if ((username || email) && password) {
+  register: async ({ username, password, secret }) => {
+    if (username && password && secret) {
+      console.log(username, password, secret);
+    }
+    return {
+      success: false,
+      error: {
+        name: "LoginError",
+        message: "Invalid username or password",
+      },
+    };
+
+  },
+  login: async ({ username, password }) => {
+    if (username && password) {
       localStorage.setItem(TOKEN_KEY, username);
       return {
         success: true,

@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kiakkai-dev-54908-authRole",
+      "UnauthRoleArn": "arn:aws:iam::476457726378:role/amplify-kiakkai-dev-54908-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::476457726378:role/amplify-kiakkai-dev-54908-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
+      "UnauthRoleName": "amplify-kiakkai-dev-54908-unauthRole",
+      "StackName": "amplify-kiakkai-dev-54908",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:476457726378:stack/amplify-kiakkai-dev-54908/e67011f0-5cbe-11ee-b6ca-0688800bac44",
+      "AmplifyAppId": "d14f07mdg1jqn6"
+    },
+    "categories": {
+      "function": {
+        "graphQlLambdaAuthorizer91f7a536": {
+          "deploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
+          "s3Key": "amplify-builds/graphQlLambdaAuthorizer91f7a536-5441452f754251563974-build.zip"
+        }
+      },
+      "api": {
+        "kiakkai": {}
+      }
+    }
+  }
+}
