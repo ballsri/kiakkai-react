@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import type { RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
-
+import { LanguageChanger } from "../languageChanger";
 export const ThemedHeaderV2: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   isSticky,
   sticky,
@@ -21,8 +21,11 @@ export const ThemedHeaderV2: React.FC<RefineThemedLayoutV2HeaderProps> = ({
     v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
   });
 
+
+
   const prefferedSticky = pickNotDeprecated(sticky, isSticky) ?? true;
 
+  
   return (
     <AppBar position={prefferedSticky ? "sticky" : "relative"}>
       <Toolbar>
@@ -35,10 +38,13 @@ export const ThemedHeaderV2: React.FC<RefineThemedLayoutV2HeaderProps> = ({
         >
           <Stack
             direction="row"
-            gap="16px"
+            gap="32px"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="start"
           >
+            <LanguageChanger />
+            
+
             {user?.name && (
               <Typography variant="subtitle2" data-testid="header-user-name">
                 {user?.name}

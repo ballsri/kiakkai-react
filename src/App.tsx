@@ -40,11 +40,22 @@ import { CircularProgress } from "@mui/material";
 // icons
 import HomeIcon from "@mui/icons-material/Home";
 
+// i18n
+import type { I18nProvider } from "@refinedev/core";
+import { useTranslation } from "react-i18next";
+
 const API_URL = "https://your-graphql-url/graphql";
 const client = new GraphQLClient(API_URL);
 const gqlDataProvider = dataProvider(client);
 
 function App() {
+  const { t, i18n } = useTranslation();
+
+  const i18nProvider: I18nProvider = {
+    translate: (key: string, options?: any) => t(key, options),
+    changeLocale: (lang: string) => i18n.changeLanguage(lang),
+    getLocale: () => i18n.language,
+  };
   return (
     <BrowserRouter>
       <StyledEngineProvider injectFirst>
@@ -56,6 +67,7 @@ function App() {
               <Refine
                 dataProvider={gqlDataProvider}
                 notificationProvider={notificationProvider}
+                i18nProvider={i18nProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
                 options={{
@@ -68,6 +80,7 @@ function App() {
                     name: "home",
                     list: "/",
                     meta: {
+                      label: t("sideBar.home", 'Home'),
                       title: "Home",
                       icon: <HomeIcon />,
                     },

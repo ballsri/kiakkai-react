@@ -17,12 +17,12 @@ export const authProvider: AuthBindings = {
         "custom:isHasSecret": "0",
       };
       if (secret && secret !== "" && secret !== null && secret !== undefined) {
-        validationData.push(secret)
-        attributes["custom:isHasSecret"] = "1"
+        validationData.push(secret);
+        attributes["custom:isHasSecret"] = "1";
       }
       params.attributes = attributes;
       params.validationData = validationData;
-      const user  = await Auth.signUp(params);
+      const user = await Auth.signUp(params);
       if (user) {
         return {
           success: true,
@@ -41,10 +41,9 @@ export const authProvider: AuthBindings = {
   login: async ({ username, password }) => {
     if (username && password) {
       try {
+        const user = await Auth.signIn(username, password);
 
-        const user = await Auth.signIn(username, password)
-        
-        if (!(user.getUsername())) {
+        if (!user.getUsername()) {
           return {
             success: false,
             error: {
@@ -53,7 +52,6 @@ export const authProvider: AuthBindings = {
             },
           };
         } else {
-
           return {
             success: true,
             redirectTo: "/",
@@ -65,7 +63,6 @@ export const authProvider: AuthBindings = {
           error: {
             name: "LoginError",
             message: (err as Error).message,
-
           },
         };
       }
@@ -82,16 +79,16 @@ export const authProvider: AuthBindings = {
   logout: async () => {
     return await Auth.signOut().then(() => {
       console.log("logged out");
-      
+
       return {
         success: true,
         redirectTo: "/login",
       };
-    })
+    });
   },
   check: async () => {
     try {
-    const user = await Auth.currentAuthenticatedUser({ bypassCache:true });
+      const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
       return {
         authenticated: !!user,
       };
@@ -102,14 +99,16 @@ export const authProvider: AuthBindings = {
         logout: true,
       };
     }
-
   },
   getPermissions: async () => {
-   const user = await Auth.currentAuthenticatedUser();
-   
+    const user = await Auth.currentAuthenticatedUser();
+
     if (user) {
       return {
-        role: user.getSignInUserSession()?.getIdToken().payload["cognito:groups"]?.[0] || "user",
+        role:
+          user.getSignInUserSession()?.getIdToken().payload[
+            "cognito:groups"
+          ]?.[0] || "user",
       };
     }
     return {
@@ -117,14 +116,13 @@ export const authProvider: AuthBindings = {
     };
   },
   getIdentity: async () => {
-    if (true) {
-      return {
-        id: 1,
-        name: "John Doe",
-        avatar: "https://i.pravatar.cc/300",
-      };
-    }
-    return null;
+    const user = await Auth.currentAuthenticatedUser();
+
+    return {
+      id: user.attributes.sub || 0,
+      name: user.username || "Test",
+      avatar: `https://ui-avatars.com/api/?name=${user.username}&size=300`,
+    };
   },
   onError: async (error) => {
     console.error(error);

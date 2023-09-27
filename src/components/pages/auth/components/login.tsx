@@ -30,6 +30,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import type { BoxProps } from "@mui/material/Box";
 import type { CardContentProps } from "@mui/material/CardContent";
+import { LanguageChanger } from "../../../languageChanger";
 
 type LoginProps = LoginPageProps<BoxProps, CardContentProps, FormPropsType>;
 
@@ -249,7 +250,7 @@ export const LoginPage: React.FC<LoginProps> = ({
             disabled={isLoading}
             sx={{ mt: "24px" }}
           >
-            {translate("pages.login.signin", "Sign in")}
+            {translate("pages.login.signIn", "Sign in")}
           </Button>
           {registerLink ?? (
             <Box
@@ -281,7 +282,7 @@ export const LoginPage: React.FC<LoginProps> = ({
                 to="/register"
                 fontWeight="bold"
               >
-                {translate("pages.login.signup", "Sign up")}
+                {translate("pages.login.signUp", "Sign up")}
               </MuiLink>
             </Box>
           )}
@@ -320,6 +321,7 @@ export const LoginPage: React.FC<LoginProps> = ({
               </>
             )}
           </Box>
+              <LanguageChanger />
         </Container>
       </Box>
     </FormProvider>

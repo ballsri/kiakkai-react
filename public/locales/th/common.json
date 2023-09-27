@@ -1,0 +1,146 @@
+{
+  "sideBar": {
+    "shortTitle": "ก",
+    "title": "เกียกกาย เว็บแอดมิน",
+    "home": "หน้าหลัก"
+  },
+  "pages": {
+    "login": {
+      "title": "ลงชื่อเข้าใช้ บัญชีเกียกกายเว็บแอดมิน",
+      "signIn": "เข้าสู่ระบบ",
+      "signUp": "สมัครสมาชิก",
+      "divider": "หรือ",
+      "fields": {
+        "username": "ชื่อผู้ใช้",
+        "password": "รหัสผ่าน"
+      },
+      "errors": {
+        "validEmail": "ที่อยู่อีเมลไม่ถูกต้อง"
+      },
+      "buttons": {
+        "submit": "เข้าสู่ระบบ",
+        "forgotPassword": "ลืมรหัสผ่าน?",
+        "noAccount": "ไม่มีบัญชี?",
+        "rememberMe": "จดจำฉัน"
+      }
+    },
+    "forgotPassword": {
+      "title": "ลืมรหัสผ่านของคุณ?",
+      "fields": {
+        "email": "อีเมล"
+      },
+      "errors": {
+        "validEmail": "ที่อยู่อีเมลไม่ถูกต้อง"
+      },
+      "buttons": {
+        "submit": "ส่งคำแนะนำในการรีเซ็ต"
+      }
+    },
+    "register": {
+      "title": "ลงทะเบียน บัญชีเกียกกายเว็บแอดมิน",
+      "signUp": "สมัครสมาชิก",
+      "fields": {
+        "username": "ชื่อผู้ใช้",
+        "password": "รหัสผ่าน",
+        "confirmPassword": "ยืนยันรหัสผ่าน",
+        "secret": "รหัสเชิญ (สำหรับผู้ดูแลระบบ)"
+      },
+      "errors": {
+        "validEmail": "ที่อยู่อีเมลไม่ถูกต้อง",
+        "passwordLength": "รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร",
+        "passwordComplexity": "รหัสผ่านต้องมีอักขระพิมพ์เล็กอย่างน้อยหนึ่งตัว พิมพ์ใหญ่อย่างน้อยหนึ่งตัวและตัวเลขอย่างน้อยหนึ่งตัว",
+        "confirmPasswordMatch": "รหัสผ่านไม่ตรงกัน"
+      },
+      "buttons": {
+        "submit": "ลงทะเบียน",
+        "haveAccount": "มีบัญชีแล้ว?",
+        "signIn": "เข้าสู่ระบบ"
+      }
+    },
+    "updatePassword": {
+      "title": "ปรับปรุงรหัสผ่าน",
+      "fields": {
+        "password": "รหัสผ่านใหม่",
+        "confirmPassword": "ยืนยันรหัสผ่านใหม่"
+      },
+      "errors": {
+        "confirmPasswordNotMatch": "รหัสผ่านไม่ตรงกัน"
+      },
+      "buttons": {
+        "submit": "ปรับปรุง"
+      }
+    },
+    "error": {
+      "info": "คุณอาจจะลืมเพิ่ม {{action}} component ใน {{resource}} resource.",
+      "404": "ขออภัย หน้าที่คุณเข้าชมไม่มีอยู่",
+      "resource404": "คุณแน่ใจไหมว่าคุณได้สร้าง {{resource}} resource.",
+      "backHome": "กลับหน้าหลัก"
+    }
+  },
+  "actions": {
+    "list": "รายการ",
+    "create": "สร้าง",
+    "edit": "แก้ไข",
+    "show": "แสดง"
+  },
+  "buttons": {
+    "create": "สร้าง",
+    "save": "บันทึก",
+    "logout": "ออกจากระบบ",
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "cancel": "ยกเลิก",
+    "confirm": "คุณแน่ใจไหม?",
+    "filter": "ตัวกรอง",
+    "clear": "ล้าง",
+    "refresh": "รีเฟรช",
+    "show": "แสดง",
+    "undo": "เลิกทำ",
+    "import": "นำเข้า",
+    "clone": "โคลน",
+    "notAccessTitle": "คุณไม่มีสิทธิ์เข้าถึง"
+  },
+  "warnWhenUnsavedChanges": "คุณแน่ใจหรือว่าต้องการออก? คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก.",
+  "notifications": {
+    "success": "สำเร็จ",
+    "error": "ข้อผิดพลาด (รหัสสถานะ: {{statusCode}})",
+    "undoable": "คุณมีเวลา {{seconds}} วินาทีในการยกเลิก",
+    "createSuccess": "สร้าง {{resource}} สำเร็จ",
+    "createError": "มีข้อผิดพลาดในการสร้าง {{resource}} (รหัสสถานะ: {{statusCode}})",
+    "deleteSuccess": "ลบ {{resource}} สำเร็จ",
+    "deleteError": "ข้อผิดพลาดในการลบ {{resource}} (รหัสสถานะ: {{statusCode}})",
+    "editSuccess": "แก้ไข {{resource}} สำเร็จ",
+    "editError": "ข้อผิดพลาดในการแก้ไข {{resource}} (รหัสสถานะ: {{statusCode}})",
+    "importProgress": "กำลังนำเข้า: {{processed}}/{{total}}"
+  },
+  "loading": "กำลังโหลด",
+  "tags": {
+    "clone": "โคลน"
+  },
+  "dashboard": {
+    "title": "แดชบอร์ด"
+  },
+  "table": {
+    "actions": "การดำเนินการ"
+  },
+  "documentTitle": {
+    "default": "refine",
+    "suffix": " | refine",
+    "post": {
+      "list": "โพสต์ | refine",
+      "show": "#{{id}} แสดงโพสต์ | refine",
+      "edit": "#{{id}} แก้ไขโพสต์ | refine",
+      "create": "สร้างโพสต์ใหม่ | refine",
+      "clone": "#{{id}} คัดลอกโพสต์ | refine"
+    }
+  },
+  "autoSave": {
+    "success": "บันทึกแล้ว",
+    "error": "การบันทึกอัตโนมัติล้มเหลว",
+    "loading": "กำลังบันทึก...",
+    "idle": "รอการเปลี่ยนแปลง"
+  }
+}
+
+
+

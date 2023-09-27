@@ -29,6 +29,7 @@ import type { BoxProps } from "@mui/material/Box";
 import type { CardContentProps } from "@mui/material/CardContent";
 import { validate } from "graphql";
 import { CircularProgress } from "@mui/material";
+import { LanguageChanger } from "../../../languageChanger";
 
 type RegisterProps = RegisterPageProps<
   BoxProps,
@@ -172,7 +173,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             id="username"
             margin="normal"
             fullWidth
-            label={translate("pages.register.username", "Username")}
+            label={translate("pages.register.fields.username", "Username")}
             error={!!errors.username}
             helperText={errors["username"] ? errors["username"].message : ""}
             name="username"
@@ -187,19 +188,19 @@ export const RegisterPage: React.FC<RegisterProps> = ({
               minLength: {
                 value: 8,
                 message: translate(
-                  "pages.register.fields.password.error",
+                  "pages.register.errors.passwordLength",
                   "Password must be at least 8 characters"
                 ),
               },
 
               validate: (value) => {
                 return (
-                  value &&
-                  [/[a-z]/, /[A-Z]/, /[0-9]/, /[^a-zA-Z0-9]/].every((pattern) =>
-                    pattern.test(value)
-                  ) ||
+                  (value &&
+                    [/[a-z]/, /[A-Z]/, /[0-9]/, /[^a-zA-Z0-9]/].every(
+                      (pattern) => pattern.test(value)
+                    )) ||
                   translate(
-                    "pages.register.fields.password.error",
+                    "pages.register.errors.passwordComplexity",
                     "Password must contain at least one lowercase letter, one uppercase letter and one number"
                   )
                 );
@@ -244,7 +245,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
               validate: (value) =>
                 value === watch("password") ||
                 translate(
-                  "pages.register.fields.confirm_password.error",
+                  "pages.register.errors.confirmPasswordMatch",
                   "Passwords do not match"
                 ),
             })}
@@ -253,7 +254,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             fullWidth
             name="confirm_password"
             label={translate(
-              "pages.register.fields.confirm_password",
+              "pages.register.fields.confirmPassword",
               "Confirm Password"
             )}
             helperText={
@@ -300,9 +301,8 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           >
             {isLoading ? (
               <CircularProgress size={24} color="inherit" />
-            
             ) : (
-              translate("pages.register.signup", "Sign up")
+              translate("pages.register.buttons.submit", "Sign up")
             )}
           </Button>
           {loginLink ?? (
@@ -319,7 +319,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             >
               <Typography variant="body2" component="span" fontSize="12px">
                 {translate(
-                  "pages.login.buttons.haveAccount",
+                  "pages.register.buttons.haveAccount",
                   "Have an account?"
                 )}
               </Typography>
@@ -333,7 +333,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
                 fontSize="12px"
                 fontWeight="bold"
               >
-                {translate("pages.login.signin", "Sign in")}
+                {translate("pages.register.buttons.signIn", "Sign in")}
               </MuiLink>
             </Box>
           )}
@@ -362,6 +362,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             {Content}
           </>
         )}
+        <LanguageChanger />
       </Container>
     </Box>
   );
