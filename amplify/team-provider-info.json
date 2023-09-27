@@ -16,16 +16,16 @@
       "function": {
         "AdminQueries679baf43": {
           "deploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
-          "s3Key": "amplify-builds/AdminQueries679baf43-576c756975726a6b6e65-build.zip"
+          "s3Key": "amplify-builds/AdminQueries679baf43-4736374b67496f716b78-build.zip"
         },
         "kiakkaiUserPreSignup": {
           "deploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
-          "s3Key": "amplify-builds/kiakkaiUserPreSignup-4d794768386b4e754166-build.zip"
+          "s3Key": "amplify-builds/kiakkaiUserPreSignup-7156567a50534758335a-build.zip"
         },
         "kiakkaiUserPostConfirmation": {
           "GROUP": "USER",
           "deploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
-          "s3Key": "amplify-builds/kiakkaiUserPostConfirmation-3952544777386a524755-build.zip"
+          "s3Key": "amplify-builds/kiakkaiUserPostConfirmation-50457858564b77344b6a-build.zip"
         }
       },
       "api": {

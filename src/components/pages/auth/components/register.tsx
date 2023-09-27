@@ -194,6 +194,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
 
               validate: (value) => {
                 return (
+                  value &&
                   [/[a-z]/, /[A-Z]/, /[0-9]/, /[^a-zA-Z0-9]/].every((pattern) =>
                     pattern.test(value)
                   ) ||
@@ -203,6 +204,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
                   )
                 );
               },
+
               onBlur: (e) => {
                 e.preventDefault();
                 trigger("password");
