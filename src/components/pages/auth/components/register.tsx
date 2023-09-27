@@ -28,6 +28,7 @@ import Typography from "@mui/material/Typography";
 import type { BoxProps } from "@mui/material/Box";
 import type { CardContentProps } from "@mui/material/CardContent";
 import { validate } from "graphql";
+import { CircularProgress } from "@mui/material";
 
 type RegisterProps = RegisterPageProps<
   BoxProps,
@@ -183,8 +184,28 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           <TextField
             {...register("password", {
               required: true,
+              minLength: {
+                value: 8,
+                message: translate(
+                  "pages.register.fields.password.error",
+                  "Password must be at least 8 characters"
+                ),
+              },
+
+              validate: (value) => {
+                return (
+                  [/[a-z]/, /[A-Z]/, /[0-9]/, /[^a-zA-Z0-9]/].every((pattern) =>
+                    pattern.test(value)
+                  ) ||
+                  translate(
+                    "pages.register.fields.password.error",
+                    "Password must contain at least one lowercase letter, one uppercase letter and one number"
+                  )
+                );
+              },
               onBlur: (e) => {
                 e.preventDefault();
+                trigger("password");
                 trigger("confirm_password");
               },
             })}
@@ -251,14 +272,15 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           />
 
           <TextField
-            {...register("secret", {
-              required: true,
-            })}
+            {...register("secret", {})}
             id="secret"
             margin="normal"
             fullWidth
             name="secret"
-            label={translate("pages.register.fields.secret", "Invitation Code")}
+            label={translate(
+              "pages.register.fields.secret",
+              "Invitation Code (For Operator)"
+            )}
             helperText={errors["secret"] ? errors["secret"].message : ""}
             error={!!errors.secret}
             sx={{
@@ -274,7 +296,12 @@ export const RegisterPage: React.FC<RegisterProps> = ({
               mt: "24px",
             }}
           >
-            {translate("pages.register.signup", "Sign up")}
+            {isLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            
+            ) : (
+              translate("pages.register.signup", "Sign up")
+            )}
           </Button>
           {loginLink ?? (
             <Box

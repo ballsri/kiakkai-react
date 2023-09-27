@@ -1,28 +1,74 @@
 import { AuthBindings } from "@refinedev/core";
-
-export const TOKEN_KEY = "refine-auth";
-
+import { Auth } from "aws-amplify";
 export const authProvider: AuthBindings = {
-  register: async ({ username, password, secret }) => {
-    if (username && password && secret) {
-      console.log(username, password, secret);
+  register: async ({ username, password, secret }: Record<string, string>) => {
+    if (username && password) {
+      const params: {
+        username: string;
+        password: string;
+        attributes?: Record<string, string>;
+        validationData?: string[];
+      } = {
+        username,
+        password,
+      };
+      let validationData: string[] = [];
+      let attributes: Record<string, string> = {
+        "custom:isHasSecret": "0",
+      };
+      if (secret && secret !== "" && secret !== null && secret !== undefined) {
+        validationData.push(secret)
+        attributes["custom:isHasSecret"] = "1"
+      }
+      params.attributes = attributes;
+      params.validationData = validationData;
+      const user  = await Auth.signUp(params);
+      if (user) {
+        return {
+          success: true,
+          redirectTo: "/login",
+        };
+      }
     }
     return {
       success: false,
       error: {
-        name: "LoginError",
-        message: "Invalid username or password",
+        name: "RegisterError",
+        message: "Invalid username or password or secret",
       },
     };
-
   },
   login: async ({ username, password }) => {
     if (username && password) {
-      localStorage.setItem(TOKEN_KEY, username);
-      return {
-        success: true,
-        redirectTo: "/",
-      };
+      try {
+
+        const user = await Auth.signIn(username, password)
+        
+        if (!(user.getUsername())) {
+          return {
+            success: false,
+            error: {
+              name: "LoginError",
+              message: "Invalid username or password",
+            },
+          };
+        } else {
+
+          return {
+            success: true,
+            redirectTo: "/",
+          };
+        }
+      } catch (err) {
+        return {
+          success: false,
+          error: {
+            name: "LoginError",
+            message: (err as Error).message,
+
+          },
+        };
+      }
     }
 
     return {
@@ -34,15 +80,15 @@ export const authProvider: AuthBindings = {
     };
   },
   logout: async () => {
-    localStorage.removeItem(TOKEN_KEY);
+    await Auth.signOut();
     return {
       success: true,
       redirectTo: "/login",
     };
   },
   check: async () => {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
+    const user = await Auth.currentAuthenticatedUser();
+    if (user) {
       return {
         authenticated: true,
       };
@@ -53,10 +99,20 @@ export const authProvider: AuthBindings = {
       redirectTo: "/login",
     };
   },
-  getPermissions: async () => null,
+  getPermissions: async () => {
+   const user = await Auth.currentAuthenticatedUser();
+   
+    if (user) {
+      return {
+        role: user.getSignInUserSession()?.getIdToken().payload["cognito:groups"]?.[0] || "user",
+      };
+    }
+    return {
+      role: "GUEST",
+    };
+  },
   getIdentity: async () => {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
+    if (true) {
       return {
         id: 1,
         name: "John Doe",

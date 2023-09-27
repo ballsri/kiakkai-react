@@ -1,15 +1,44 @@
 {
   "api": {
+    "AdminQueries": {
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "kiakkaiUser"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "AdminQueries679baf43"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "kiakkai": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "kiakkaiUser"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "authenticationType": "AWS_LAMBDA",
-            "lambdaAuthorizerConfig": {
-              "lambdaFunction": "graphQlLambdaAuthorizer91f7a536",
-              "ttlSeconds": "150"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authkiakkaiUser"
             }
           }
         }
@@ -18,27 +47,148 @@
       "service": "AppSync"
     }
   },
+  "auth": {
+    "kiakkaiUser": {
+      "customAuth": false,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "kiakkaiUserPreSignup",
+          "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "kiakkaiUserPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_UPPERCASE",
+            "REQUIRES_NUMBERS"
+          ],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "PHONE_NUMBER"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID"
+          ],
+          "category": "auth",
+          "resourceName": "kiakkaiUser"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
+    }
+  },
   "function": {
-    "graphQlLambdaAuthorizer91f7a536": {
+    "AdminQueries679baf43": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "kiakkaiUser"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "kiakkaiUserPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "kiakkaiUserPreSignup": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_graphQlLambdaAuthorizer91f7a536_deploymentBucketName": {
+    "AMPLIFY_function_AdminQueries679baf43_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "graphQlLambdaAuthorizer91f7a536"
+          "resourceName": "AdminQueries679baf43"
         }
       ]
     },
-    "AMPLIFY_function_graphQlLambdaAuthorizer91f7a536_s3Key": {
+    "AMPLIFY_function_AdminQueries679baf43_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "graphQlLambdaAuthorizer91f7a536"
+          "resourceName": "AdminQueries679baf43"
+        }
+      ]
+    },
+    "AMPLIFY_function_kiakkaiUserPostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "kiakkaiUserPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_kiakkaiUserPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "kiakkaiUserPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_kiakkaiUserPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "kiakkaiUserPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_kiakkaiUserPreSignup_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "kiakkaiUserPreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_kiakkaiUserPreSignup_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "kiakkaiUserPreSignup"
         }
       ]
     }

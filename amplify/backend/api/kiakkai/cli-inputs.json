@@ -4,9 +4,10 @@
     "apiName": "kiakkai",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "AWS_LAMBDA",
-      "lambdaFunction": "graphQlLambdaAuthorizer91f7a536",
-      "ttlSeconds": "150"
-    }
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authkiakkaiUser"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
   }
 }

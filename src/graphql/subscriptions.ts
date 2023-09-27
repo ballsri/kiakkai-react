@@ -2,48 +2,93 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
+export const onCreateParcel = /* GraphQL */ `
+  subscription OnCreateParcel($filter: ModelSubscriptionParcelFilterInput) {
+    onCreateParcel(filter: $filter) {
       id
-      username
-      password
-      phone
-      role
-      created_at
-      updated_at
+      parcel_key
+      package_type
+      package_other
+      resident_room
+      resident_name
+      received_at
+      received_by
+      picked_up_at
+      picked_up_by
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
+export const onUpdateParcel = /* GraphQL */ `
+  subscription OnUpdateParcel($filter: ModelSubscriptionParcelFilterInput) {
+    onUpdateParcel(filter: $filter) {
       id
-      username
-      password
-      phone
-      role
-      created_at
-      updated_at
+      parcel_key
+      package_type
+      package_other
+      resident_room
+      resident_name
+      received_at
+      received_by
+      picked_up_at
+      picked_up_by
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
+export const onDeleteParcel = /* GraphQL */ `
+  subscription OnDeleteParcel($filter: ModelSubscriptionParcelFilterInput) {
+    onDeleteParcel(filter: $filter) {
       id
-      username
-      password
-      phone
-      role
-      created_at
-      updated_at
+      parcel_key
+      package_type
+      package_other
+      resident_room
+      resident_name
+      received_at
+      received_by
+      picked_up_at
+      picked_up_by
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateSecret = /* GraphQL */ `
+  subscription OnCreateSecret($filter: ModelSubscriptionSecretFilterInput) {
+    onCreateSecret(filter: $filter) {
+      id
+      name
+      secret
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateSecret = /* GraphQL */ `
+  subscription OnUpdateSecret($filter: ModelSubscriptionSecretFilterInput) {
+    onUpdateSecret(filter: $filter) {
+      id
+      name
+      secret
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteSecret = /* GraphQL */ `
+  subscription OnDeleteSecret($filter: ModelSubscriptionSecretFilterInput) {
+    onDeleteSecret(filter: $filter) {
+      id
+      name
+      secret
       createdAt
       updatedAt
       __typename

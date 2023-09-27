@@ -2,15 +2,14 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"Amplify\",\"createdWith\":\"12.4.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
-    "CloudWatchRule": {
-      "Type": "String",
-      "Default": "NONE",
-      "Description": " Schedule Expression"
-    },
-    "deploymentBucketName": {
+    "env": {
       "Type": "String"
     },
-    "env": {
+    "authkiakkaiUserUserPoolId": {
+      "Type": "String",
+      "Default": "authkiakkaiUserUserPoolId"
+    },
+    "deploymentBucketName": {
       "Type": "String"
     },
     "s3Key": {
@@ -35,24 +34,16 @@
         "aws:asset:property": "Code"
       },
       "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": {
-            "Ref": "s3Key"
-          }
-        },
         "Handler": "index.handler",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "graphQlLambdaAuthorizer91f7a536",
+            "AdminQueries679baf43",
             {
               "Fn::Join": [
                 "",
                 [
-                  "graphQlLambdaAuthorizer91f7a536",
+                  "AdminQueries679baf43",
                   "-",
                   {
                     "Ref": "env"
@@ -67,8 +58,9 @@
             "ENV": {
               "Ref": "env"
             },
-            "REGION": {
-              "Ref": "AWS::Region"
+            "GROUP": "OPERATOR",
+            "USERPOOL": {
+              "Ref": "authkiakkaiUserUserPoolId"
             }
           }
         },
@@ -79,8 +71,15 @@
           ]
         },
         "Runtime": "nodejs18.x",
-        "Layers": [],
-        "Timeout": 25
+        "Timeout": 25,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
+        }
       }
     },
     "LambdaExecutionRole": {
@@ -89,12 +88,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "kiakkaiLambdaRolefacf1c0a",
+            "AdminQueries679baf43LambdaRole",
             {
               "Fn::Join": [
                 "",
                 [
-                  "kiakkaiLambdaRolefacf1c0a",
+                  "AdminQueries679baf43LambdaRole",
                   "-",
                   {
                     "Ref": "env"
@@ -160,19 +159,44 @@
                   }
                 ]
               }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:ListUsersInGroup",
+                "cognito-idp:AdminUserGlobalSignOut",
+                "cognito-idp:AdminEnableUser",
+                "cognito-idp:AdminDisableUser",
+                "cognito-idp:AdminRemoveUserFromGroup",
+                "cognito-idp:AdminAddUserToGroup",
+                "cognito-idp:AdminListGroupsForUser",
+                "cognito-idp:AdminGetUser",
+                "cognito-idp:AdminConfirmSignUp",
+                "cognito-idp:ListUsers",
+                "cognito-idp:ListGroups"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:cognito-idp:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":userpool/",
+                    {
+                      "Ref": "authkiakkaiUserUserPoolId"
+                    }
+                  ]
+                ]
+              }
             }
           ]
         }
-      }
-    },
-    "PermissionForAppSyncToInvokeLambda": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "LambdaFunction"
-        },
-        "Action": "lambda:InvokeFunction",
-        "Principal": "appsync.amazonaws.com"
       }
     }
   },

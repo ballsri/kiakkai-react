@@ -9,17 +9,32 @@
       "UnauthRoleName": "amplify-kiakkai-dev-54908-unauthRole",
       "StackName": "amplify-kiakkai-dev-54908",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:476457726378:stack/amplify-kiakkai-dev-54908/e67011f0-5cbe-11ee-b6ca-0688800bac44",
-      "AmplifyAppId": "d14f07mdg1jqn6"
+      "AmplifyAppId": "d14f07mdg1jqn6",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-kiakkai-dev-54908-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "function": {
-        "graphQlLambdaAuthorizer91f7a536": {
+        "AdminQueries679baf43": {
           "deploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
-          "s3Key": "amplify-builds/graphQlLambdaAuthorizer91f7a536-5441452f754251563974-build.zip"
+          "s3Key": "amplify-builds/AdminQueries679baf43-576c756975726a6b6e65-build.zip"
+        },
+        "kiakkaiUserPreSignup": {
+          "deploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
+          "s3Key": "amplify-builds/kiakkaiUserPreSignup-4d794768386b4e754166-build.zip"
+        },
+        "kiakkaiUserPostConfirmation": {
+          "GROUP": "USER",
+          "deploymentBucketName": "amplify-kiakkai-dev-54908-deployment",
+          "s3Key": "amplify-builds/kiakkaiUserPostConfirmation-3952544777386a524755-build.zip"
         }
       },
       "api": {
-        "kiakkai": {}
+        "kiakkai": {},
+        "AdminQueries": {}
+      },
+      "auth": {
+        "kiakkaiUser": {},
+        "userPoolGroups": {}
       }
     }
   }

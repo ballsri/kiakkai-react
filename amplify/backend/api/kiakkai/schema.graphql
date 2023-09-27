@@ -1,19 +1,35 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 
-type User @model @auth(rules: [{ allow: custom }])  {
-  id: ID!
-  username: String!
-  password: String!
-  phone: String
-  role: Role!
-  created_at: String
-  updated_at: String
+type Parcel @model @auth(rules: [{ allow: groups, groups: ["ADMIN", "DEVELOPER", "OPERATOR"], operations:[create, read, update,delete] }])   {
+  id: ID! @auth(rules: [{ allow: groups, groups: ["ADMIN", "DEVELOPER"], operations:[create, read, update,delete] },{ allow: groups, groups: ["OPERATOR"], operations: [create,read] }])
+  parcel_key: String!
+  package_type: PackageType!
+  package_other: String
+  resident_room: String!
+  resident_name: String!
+  received_at: AWSDateTime!
+  received_by: String!
+  picked_up_at: AWSDateTime
+  picked_up_by: String
+  }
+
+enum PackageType {
+  BOX
+  ENVELOPE
+  OTHER
 }
 
-enum Role {
-  ADMIN
-  DEVELOPER
-  OPERATOR
-  USER
+
+type Secret 
+  @model 
+  @auth(
+    rules: [
+        { allow: groups, groups: ["ADMIN", "DEVELOPER"], operations:[create, read, update,delete] },
+        { allow: private, operations: [read] } 
+      ]
+  ) {
+  name: String! @primaryKey
+  secret: String! @index(name: "SecretIndex")
 }
+
