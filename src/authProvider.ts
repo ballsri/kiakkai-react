@@ -80,24 +80,29 @@ export const authProvider: AuthBindings = {
     };
   },
   logout: async () => {
-    await Auth.signOut();
-    return {
-      success: true,
-      redirectTo: "/login",
-    };
+    return await Auth.signOut().then(() => {
+      console.log("logged out");
+      
+      return {
+        success: true,
+        redirectTo: "/login",
+      };
+    })
   },
   check: async () => {
-    const user = await Auth.currentAuthenticatedUser();
-    if (user) {
+    try {
+    const user = await Auth.currentAuthenticatedUser({ bypassCache:true });
       return {
-        authenticated: true,
+        authenticated: !!user,
+      };
+    } catch (err) {
+      return {
+        authenticated: false,
+        redirectTo: "/login",
+        logout: true,
       };
     }
 
-    return {
-      authenticated: false,
-      redirectTo: "/login",
-    };
   },
   getPermissions: async () => {
    const user = await Auth.currentAuthenticatedUser();
